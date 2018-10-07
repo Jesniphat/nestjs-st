@@ -9,13 +9,13 @@ export class AppController {
   @Get()
   root(): any {
     // return this.appService.root();
-    return this.appService.findAccount();
+    return this.appService.findAllAccount();
   }
 
   @Post()
   async create(@Body() memberSave, @Res() res): Promise<any> {
     // console.log(memberSave); return;
-    const result = await this.appService.saveAccount(memberSave);
+    const result = await this.appService.register(memberSave);
     res.status(HttpStatus.CREATED).send({
       status: 200,
       data: result,

@@ -12,16 +12,19 @@ export class Members {
   @Column('varchar', { length: 200 })
   lastname: string;
 
+  @Column('varchar', { length: 100})
+  username: string;
+
   @Column('varchar', { length: 100 })
   email: string;
 
-  @Column('varchar', { length: 50 })
+  @Column('varchar', { length: 500 })
   password: string;
 
   @Column('varchar', { length: 100 })
   position: string;
 
-  @Column({ length: 500, default: 'no' })
+  @Column({ length: 500, default: 'NO' })
   image: string;
 
   @Column('char', { length: 30, default: 0 })
