@@ -1,21 +1,21 @@
 import { Get, Controller, Post, Body, Res, HttpStatus  } from '@nestjs/common';
-import { AppService } from 'services/app.service';
+import { AccountService } from 'services/account.service';
 // import { Members } from '../entity/members.entity';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(private readonly appService: AccountService) {}
 
   @Get()
   root(): any {
     // return this.appService.root();
-    return this.appService.findAll();
+    return this.appService.findAccount();
   }
 
   @Post()
   async create(@Body() memberSave, @Res() res): Promise<any> {
     // console.log(memberSave); return;
-    const result = await this.appService.saveCat(memberSave);
+    const result = await this.appService.saveAccount(memberSave);
     res.status(HttpStatus.CREATED).send({
       status: 200,
       data: result,

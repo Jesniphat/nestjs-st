@@ -21,10 +21,10 @@ export class Members {
   @Column('varchar', { length: 100 })
   position: string;
 
-  @Column({ length: 500 })
+  @Column({ length: 500, default: 'no' })
   image: string;
 
-  @Column('char', { length: 30 })
+  @Column('char', { length: 30, default: 0 })
   role: string;
 
   @Column('datetime', { default: () => 'CURRENT_TIMESTAMP' })
