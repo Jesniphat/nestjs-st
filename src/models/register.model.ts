@@ -16,7 +16,7 @@ export class RegisterModel {
   email: string;
 
   @IsNotEmpty()
-  @Matches(/^[A-z0-9]{6,15}$/)
+  @Matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,20}$/)
   password: string;
 
   @IsNotEmpty()

@@ -53,13 +53,14 @@ export class AccountService {
 
       member.password = generate(member.password);
       const savedData = await this.memnberRepository.save(member);
+
       // tslint:disable-next-line:no-console
       console.log('Cat has been saved -> ' /*, savedData*/);
 
-      const response = Object.assign({status: true, data: savedData});
+      const response: SavedResponse = Object.assign({status: true, data: savedData});
       return response;
     } catch (e) {
-      const error = Object.assign({status: false, error: e.message });
+      const error: SavedResponse = Object.assign({status: false, error: e.message });
       return error;
     }
   }
