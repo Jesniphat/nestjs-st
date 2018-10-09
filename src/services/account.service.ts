@@ -5,6 +5,7 @@ import { generate } from 'password-hash';
 
 import { Members } from 'entity/members.entity';
 import { SavedResponse } from 'interfaces/app.interface';
+import { LogingModel } from 'models/login.model';
 
 @Injectable()
 export class AccountService {
@@ -12,31 +13,31 @@ export class AccountService {
     @InjectRepository(Members) private readonly memnberRepository: Repository<Members>,
   ) {}
 
-  root(): string {
+  public root(): string {
     return 'Hello World!!';
   }
 
-  async findAllAccount(): Promise<Members[]> {
+  public async findAllAccount(): Promise<Members[]> {
     return await this.memnberRepository.find();
   }
 
-  async findAccount(id: number): Promise<Members> {
+  public async findAccount(id: number): Promise<Members> {
     const account = await this.memnberRepository.findOne({ id: (id) });
     return account;
   }
 
-  async findAccountByEmail(email: string): Promise<any[]> {
+  public async findAccountByEmail(email: string): Promise<any[]> {
     const [account, number] = await this.memnberRepository.findAndCount({ email: (email) });
     const data = [account, number];
     return data;
   }
 
-  async findAccountByUsername(username: string): Promise<number> {
+  public async findAccountByUsername(username: string): Promise<number> {
     const [account, number] = await this.memnberRepository.findAndCount({ username: (username)});
     return number;
   }
 
-  async register(memberSave): Promise<SavedResponse> {
+  public async register(memberSave): Promise<SavedResponse> {
     try {
       let member = new Members();
       member = Object.assign(memberSave);
@@ -63,5 +64,9 @@ export class AccountService {
       const error: SavedResponse = Object.assign({status: false, error: e.message });
       return error;
     }
+  }
+
+  public async login(loginData: LogingModel): Promise<any> {
+    return loginData;
   }
 }

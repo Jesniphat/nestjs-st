@@ -4,22 +4,22 @@ import { IsComparePassword } from 'pipes/validation.pipe';
 export class RegisterModel {
   @IsNotEmpty()
   @IsString()
-  firstname: string;
+  public firstname: string;
 
   @IsNotEmpty()
   @IsString()
-  lastname: string;
+  public lastname: string;
 
   @IsNotEmpty()
   @IsString()
   @IsEmail()
-  email: string;
+  public email: string;
 
   @IsNotEmpty()
   @Matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,20}$/)
-  password: string;
+  public password: string;
 
   @IsNotEmpty()
   @IsComparePassword('password')
-  cpassword: string;
+  public cpassword: string;
 }

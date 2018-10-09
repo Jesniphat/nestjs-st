@@ -2,23 +2,24 @@ import { Get, Controller, Post, Body, Res, Param, HttpStatus  } from '@nestjs/co
 import { AccountService } from 'services/account.service';
 import { RegisterModel } from 'models/register.model';
 import { ValidationPipe } from 'pipes/validation.pipe';
+import { LogingModel } from 'models/login.model';
 
 @Controller('api/account')
 export class AccountController {
   constructor(private readonly appService: AccountService) {}
 
   @Get()
-  async getAccounts(): Promise<any> {
+  public async getAccounts(): Promise<any> {
     return await this.appService.findAllAccount();
   }
 
   @Get(':id')
-  async getAccountById(@Param('id') id): Promise<any> {
+  public async getAccountById(@Param('id') id): Promise<any> {
     return await this.appService.findAccount(1);
   }
 
   @Post('register')
-  async register(@Body(new ValidationPipe()) memberSave: RegisterModel, @Res() res): Promise<any> {
+  public async register(@Body(new ValidationPipe()) memberSave: RegisterModel, @Res() res: any): Promise<void> {
     await delete memberSave.cpassword;
     const result = await this.appService.register(memberSave);
 
@@ -36,5 +37,15 @@ export class AccountController {
         message: result.error,
       });
     }
+  }
+
+  @Post('login')
+  public async login(@Body(new ValidationPipe()) login: LogingModel, @Res() res: any): Promise<void> {
+    const logins = await this.appService.login(login);
+    res.status(HttpStatus.OK).send({
+      statusCode: 200,
+      success: 'OK',
+      data: logins,
+    });
   }
 }

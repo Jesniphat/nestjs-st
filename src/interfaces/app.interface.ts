@@ -1,7 +1,7 @@
 import { Members } from 'entity/members.entity';
 
 export class SavedResponse {
-  status: boolean;
-  data: Members;
-  error: string;
+  public status: boolean;
+  public data: Members;
+  public error: string;
 }
