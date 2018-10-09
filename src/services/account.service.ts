@@ -1,10 +1,10 @@
 import { Injectable, Inject, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { generate } from 'password-hash';
+import { generate, verify } from 'password-hash';
 
 import { Members } from 'entity/members.entity';
-import { SavedResponse } from 'interfaces/app.interface';
+import { SavedResponse, LoginResponse } from 'interfaces/app.interface';
 import { LogingModel } from 'models/login.model';
 
 @Injectable()
@@ -26,15 +26,16 @@ export class AccountService {
     return account;
   }
 
-  public async findAccountByEmail(email: string): Promise<any[]> {
+  private async findAccountByEmail(email: string): Promise<any[]> {
     const [account, number] = await this.memnberRepository.findAndCount({ email: (email) });
     const data = [account, number];
     return data;
   }
 
-  public async findAccountByUsername(username: string): Promise<number> {
+  private async findAccountByUsername(username: string): Promise<any[]> {
     const [account, number] = await this.memnberRepository.findAndCount({ username: (username)});
-    return number;
+    const data = [account, number];
+    return data;
   }
 
   public async register(memberSave): Promise<SavedResponse> {
@@ -48,7 +49,7 @@ export class AccountService {
       }
 
       const duplcateUsername = await this.findAccountByUsername(member.username);
-      if (duplcateUsername > 0) {
+      if (duplcateUsername[1] > 0) {
         throw new Error('User name alredy exit.');
       }
 
@@ -66,7 +67,30 @@ export class AccountService {
     }
   }
 
-  public async login(loginData: LogingModel): Promise<any> {
-    return loginData;
+  public async login(loginData: LogingModel): Promise<LoginResponse> {
+    try {
+      const account = await this.findAccountByUsername(loginData.username);
+
+      if (account[1] === 0) {
+        throw new Error('User name not exit.');
+      }
+      const password = verify(loginData.password, account[0][0].password);
+
+      if (!password) {
+        throw new Error('Password not correct.');
+      }
+
+      const response: LoginResponse = Object.assign({
+        status: true,
+        data: account[0][0],
+      });
+      return response;
+    } catch (e) {
+      const error: LoginResponse = Object.assign({
+        status: false,
+        error: e.message,
+      });
+      return error;
+    }
   }
 }

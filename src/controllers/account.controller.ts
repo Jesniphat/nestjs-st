@@ -42,10 +42,19 @@ export class AccountController {
   @Post('login')
   public async login(@Body(new ValidationPipe()) login: LogingModel, @Res() res: any): Promise<void> {
     const logins = await this.appService.login(login);
-    res.status(HttpStatus.OK).send({
-      statusCode: 200,
-      success: 'OK',
-      data: logins,
-    });
+
+    if (logins.status){
+      res.status(HttpStatus.OK).send({
+        statusCode: 200,
+        success: 'OK',
+        data: logins.data,
+      });
+    } else {
+      res.status(HttpStatus.UNAUTHORIZED).send({
+        statusCode: 401,
+        error: 'Unauthorized',
+        message: logins.error,
+      });
+    }
   }
 }
