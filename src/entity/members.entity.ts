@@ -4,38 +4,38 @@ import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 @Entity()
 export class Members {
   @PrimaryGeneratedColumn()
-  id: number;
+  public id: number;
 
   @Column('varchar', { length: 200 })
-  firstname: string;
+  public firstname: string;
 
   @Column('varchar', { length: 200 })
-  lastname: string;
+  public lastname: string;
 
   @Column('varchar', { length: 100})
-  username: string;
+  public username: string;
 
   @Column('varchar', { length: 100 })
-  email: string;
+  public email: string;
 
   @Column('varchar', { length: 500 })
-  password: string;
+  public password: string;
 
   @Column('varchar', { length: 100 })
-  position: string;
+  public position: string;
 
   @Column({ length: 500, default: 'NO' })
-  image: string;
+  public image: string;
 
   @Column('char', { length: 30, default: 0 })
-  role: string;
+  public role: string;
 
   @Column('datetime', { default: () => 'CURRENT_TIMESTAMP' })
-  created: string;
+  public created: string;
 
   @Column('datetime', { default: () => 'CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP' })
-  updated: string;
+  public updated: string;
 
   @Column({ default: true})
-  active: boolean;
+  public active: boolean;
 }

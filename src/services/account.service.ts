@@ -6,41 +6,81 @@ import { generate, verify } from 'password-hash';
 import { Members } from 'entity/members.entity';
 import { SavedResponse, LoginResponse } from 'interfaces/service.interface';
 import { LogingModel } from 'models/login.model';
+import { RegisterModel } from 'models/register.model';
 
 @Injectable()
 export class AccountService {
-  constructor(
+  public constructor(
     @InjectRepository(Members) private readonly memnberRepository: Repository<Members>,
   ) {}
 
+/**
+ * root check service
+ *
+ * @access public
+ * @return string
+ */
   public root(): string {
     return 'Hello World!!';
   }
 
+/**
+ * ดึงข้อมูล account ทั้งหมด
+ *
+ * @access public
+ * @returns Promise<Members[]>
+ */
   public async findAllAccount(): Promise<Members[]> {
     return await this.memnberRepository.find();
   }
 
+/**
+ * ดึงข้อมููล account ด้วย id
+ *
+ * @param id: number
+ * @access public
+ * @return Promise<Members>
+ */
   public async findAccount(id: number): Promise<Members> {
     const account = await this.memnberRepository.findOne({ id: (id) });
     return account;
   }
 
+/**
+ * ดึง และนับขอมูล account ด้วย Email
+ *
+ * @param email: string
+ * @access private
+ * @returns Promise<any[]>
+ */
   private async findAccountByEmail(email: string): Promise<any[]> {
     const [account, number] = await this.memnberRepository.findAndCount({ email: (email) });
     const data = [account, number];
     return data;
   }
 
+/**
+ * ดึง และนับข้อมูล account ด้วย username
+ *
+ * @param username: string
+ * @access private
+ * @returns Promise<any[]>
+ */
   private async findAccountByUsername(username: string): Promise<any[]> {
     const [account, number] = await this.memnberRepository.findAndCount({ username: (username)});
     const data = [account, number];
     return data;
   }
 
-  public async register(memberSave): Promise<SavedResponse> {
+/**
+ * สมัครสมาชิด เพิ่มข้อมูลลง account
+ * @param memberSave: Member
+ * @access public
+ * @return Promise<SavedResponse>
+ */
+  public async register(memberSave: RegisterModel): Promise<SavedResponse> {
     try {
-      let member = new Members();
+      let member: Members = new Members();
       member = Object.assign(memberSave);
 
       const duplicateEmail = await this.findAccountByEmail(member.email);
@@ -67,6 +107,12 @@ export class AccountService {
     }
   }
 
+/**
+ * ตรวจสอบการเข้าสู้ระบบ
+ * @param loginData: LogingModel
+ * @access public
+ * @return Promise<LoginResponse>
+ */
   public async login(loginData: LogingModel): Promise<LoginResponse> {
     try {
       const account = await this.findAccountByUsername(loginData.username);
