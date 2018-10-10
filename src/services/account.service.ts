@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 import { generate, verify } from 'password-hash';
 
 import { Members } from 'entity/members.entity';
-import { SavedResponse, LoginResponse } from 'interfaces/app.interface';
+import { SavedResponse, LoginResponse } from 'interfaces/service.interface';
 import { LogingModel } from 'models/login.model';
 
 @Injectable()
