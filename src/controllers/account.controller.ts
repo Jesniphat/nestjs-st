@@ -47,7 +47,7 @@ export class AccountController {
       res.status(HttpStatus.OK).send({
         statusCode: 200,
         success: 'OK',
-        data: logins.data,
+        accesstoken: logins.data,
       });
     } else {
       res.status(HttpStatus.UNAUTHORIZED).send({

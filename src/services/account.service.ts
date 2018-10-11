@@ -7,10 +7,12 @@ import { Members } from 'entity/members.entity';
 import { SavedResponse, LoginResponse } from 'interfaces/service.interface';
 import { LogingModel } from 'models/login.model';
 import { RegisterModel } from 'models/register.model';
+import { DBAuthenService } from './db-authen.service';
 
 @Injectable()
 export class AccountService {
   public constructor(
+    private readonly authenService: DBAuthenService,
     @InjectRepository(Members) private readonly memnberRepository: Repository<Members>,
   ) {}
 
@@ -125,10 +127,10 @@ export class AccountService {
       if (!password) {
         throw new Error('Password not correct.');
       }
-
+      const token = this.authenService.generateAccessToken();
       const response: LoginResponse = Object.assign({
         status: true,
-        data: account[0][0],
+        data: token,
       });
       return response;
     } catch (e) {
