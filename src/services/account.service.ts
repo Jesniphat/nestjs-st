@@ -127,7 +127,7 @@ export class AccountService {
       if (!password) {
         throw new Error('Password not correct.');
       }
-      const token = this.authenService.generateAccessToken();
+      const token = await this.authenService.generateAccessToken(account[0][0]);
       const response: LoginResponse = Object.assign({
         status: true,
         data: token,

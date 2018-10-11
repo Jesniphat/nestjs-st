@@ -13,7 +13,7 @@ import { Tokens } from 'entity/tokens.entity';
 @Module({
   imports: [
     TypeOrmModule.forRoot(),
-    TypeOrmModule.forFeature([Members]),
+    TypeOrmModule.forFeature([Members, Tokens]),
   ],
   controllers: [
     AppController,
