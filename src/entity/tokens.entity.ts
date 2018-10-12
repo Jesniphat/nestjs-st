@@ -11,8 +11,8 @@ export class Tokens {
   @Column('varchar', { length: 100 })
   public access_token: string;
 
-  @Column('varchar', { default: null })
-  public exprise: any;
+  @Column('datetime', { default: null })
+  public exprise: string;
 
   @Column({ default: true})
   public active: boolean;
