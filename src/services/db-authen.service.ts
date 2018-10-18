@@ -7,9 +7,10 @@ import { Tokens } from 'entity/tokens.entity';
 import { Members } from 'entity/members.entity';
 
 import * as moment from 'moment';
+import { IAuthen } from 'interfaces/authen.interface';
 
 @Injectable()
-export class DBAuthenService {
+export class DBAuthenService implements IAuthen {
   public constructor(
     @InjectRepository(Tokens) private readonly tokenRepository: Repository<Tokens>,
   ) {}

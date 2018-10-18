@@ -8,11 +8,12 @@ import { SavedResponse, LoginResponse } from 'interfaces/service.interface';
 import { LogingModel } from 'models/login.model';
 import { RegisterModel } from 'models/register.model';
 import { DBAuthenService } from './db-authen.service';
+import { JwtAuthenService } from './jwt-authen.service';
 
 @Injectable()
 export class AccountService {
   public constructor(
-    private readonly authenService: DBAuthenService,
+    private readonly authenService: JwtAuthenService,
     @InjectRepository(Members) private readonly memnberRepository: Repository<Members>,
   ) {}
 

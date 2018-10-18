@@ -6,6 +6,7 @@ import { AccountController } from 'controllers/account.controller';
 
 import { AccountService } from 'services/account.service';
 import { DBAuthenService } from 'services/db-authen.service';
+import { JwtAuthenService } from 'services/jwt-authen.service';
 
 import { Members } from 'entity/members.entity';
 import { Tokens } from 'entity/tokens.entity';
@@ -22,6 +23,7 @@ import { Tokens } from 'entity/tokens.entity';
   providers: [
     AccountService,
     DBAuthenService,
+    JwtAuthenService,
   ],
 })
 export class AppModule {}
