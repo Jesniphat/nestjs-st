@@ -1,5 +1,5 @@
+
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
-// import * as Moment from 'moment';
 
 @Entity()
 export class Members {
