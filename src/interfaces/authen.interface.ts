@@ -7,4 +7,12 @@ export interface IAuthen {
    * @return Promise<string>
    */
   generateAccessToken(memberData: Members): Promise<string>;
+
+  /**
+   * validateUser
+   * @param accessToken
+   * @access public
+   * @return Promise<Members>
+   */
+  validateUser(accessToken: string): Promise<Members>;
 }

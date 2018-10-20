@@ -1,5 +1,6 @@
 
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Tokens } from './tokens.entity';
 
 @Entity()
 export class Members {
@@ -38,4 +39,7 @@ export class Members {
 
   @Column({ default: true})
   public active: boolean;
+
+  @OneToMany(type => Tokens, token => token.member)
+  public token: Tokens[];
 }

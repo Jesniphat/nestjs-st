@@ -1,12 +1,10 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { Members } from './members.entity';
 
 @Entity()
 export class Tokens {
   @PrimaryGeneratedColumn()
   public id: number;
-
-  @Column('int')
-  public member_id: number;
 
   @Column('varchar', { length: 100 })
   public access_token: string;
@@ -22,4 +20,7 @@ export class Tokens {
 
   @Column('datetime', { default: () => 'CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP' })
   public updated: string;
+
+  @ManyToOne(type => Members, member => member.token)
+  public member: Members;
 }
