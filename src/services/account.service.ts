@@ -13,7 +13,8 @@ import { JwtAuthenService } from './jwt-authen.service';
 @Injectable()
 export class AccountService {
   public constructor(
-    private readonly authenService: DBAuthenService,
+    // private readonly authenService: DBAuthenService,
+    private readonly authenService: JwtAuthenService,
     @InjectRepository(Members) private readonly memnberRepository: Repository<Members>,
   ) {}
 

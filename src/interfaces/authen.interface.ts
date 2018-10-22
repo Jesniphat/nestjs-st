@@ -10,9 +10,9 @@ export interface IAuthen {
 
   /**
    * validateUser
-   * @param accessToken
+   * @param accessToken or member id
    * @access public
    * @return Promise<Members>
    */
-  validateUser(accessToken: string): Promise<Members>;
+  validateUser(accessToken: any): Promise<Members>;
 }

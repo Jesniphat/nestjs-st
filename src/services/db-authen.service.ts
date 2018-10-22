@@ -1,8 +1,8 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { InjectRepository, InjectEntityManager } from '@nestjs/typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { Strategy } from 'passport-http-bearer';
 import { PassportStrategy } from '@nestjs/passport';
-import { Repository } from 'typeorm';
 
 import { generate } from 'password-hash';
 import { Tokens } from 'entity/tokens.entity';
@@ -15,7 +15,6 @@ import { IAuthen } from 'interfaces/authen.interface';
 export class DBAuthenService implements IAuthen {
   public constructor(
     @InjectRepository(Tokens) private readonly tokenRepository: Repository<Tokens>,
-    @InjectRepository(Members) private readonly memberRepository: Repository<Members>,
   ) {}
 
 /**
@@ -55,6 +54,7 @@ export class DBAuthenService implements IAuthen {
         throw new Error('Token exprie or token not match.');
       }
       if ((moment(token.exprise).format('YYYY-MM-DD h:mm:ss')) > (moment().format('YYYY-MM-DD h:mm:ss'))) {
+        await delete token.member.password;
         return token.member;
       }
     } catch (e) {

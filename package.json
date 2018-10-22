@@ -19,6 +19,7 @@
   "dependencies": {
     "@nestjs/common": "^5.0.0",
     "@nestjs/core": "^5.0.0",
+    "@nestjs/jwt": "^0.2.0",
     "@nestjs/passport": "^5.1.0",
     "@nestjs/typeorm": "^5.2.2",
     "@types/jsonwebtoken": "^7.2.8",
@@ -30,6 +31,7 @@
     "mysql": "^2.16.0",
     "passport": "^0.4.0",
     "passport-http-bearer": "^1.0.1",
+    "passport-jwt": "^4.0.0",
     "password-hash": "^1.2.2",
     "reflect-metadata": "^0.1.12",
     "rxjs": "^6.0.0",
@@ -42,6 +44,7 @@
     "@types/jest": "^21.1.8",
     "@types/node": "^9.3.0",
     "@types/passport-http-bearer": "^1.0.33",
+    "@types/passport-jwt": "^3.0.1",
     "@types/password-hash": "^1.2.20",
     "@types/supertest": "^2.0.4",
     "jest": "^21.2.1",
