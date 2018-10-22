@@ -25,7 +25,7 @@ export class JwtAuthenService implements IAuthen {
  * @return Promise<string>
  */
   public async generateAccessToken(memberData: Members): Promise<string> {
-    const payload = { id: memberData.id };
+    const payload = { id: memberData.id, role: memberData.role, position: memberData.position };
     const token = await sign(payload, JwtAuthenService.secretKey, {expiresIn: 60 * 60});
     return token;
   }
@@ -36,7 +36,7 @@ export class JwtAuthenService implements IAuthen {
  * @access public
  * @return Promise<any>
  */
-  public async validateUser(data: { id: number, iat: number, exp: number}): Promise<any> {
+  public async validateUser(data: { id: number, role: number, position: string, iat: number, exp: number}): Promise<any> {
     try {
       const member = await this.memberRepository.findOne(data.id);
       if (!member) {
@@ -59,7 +59,7 @@ export class JwtAuthenStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate(payload: { id: number, iat: number, exp: number}) {
+  async validate(payload: { id: number, role: number, position: string, iat: number, exp: number}) {
     const user = await this.authService.validateUser(payload);
     if (!user) {
       throw new UnauthorizedException('please login.', 'Unauthorized');
