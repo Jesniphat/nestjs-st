@@ -11,6 +11,7 @@ import { JwtAuthenService, JwtAuthenStrategy } from 'services/jwt-authen.service
 import { Members } from 'entity/members.entity';
 import { Tokens } from 'entity/tokens.entity';
 import { MemberControlle } from 'controllers/member.controller';
+import { MemberService } from 'services/member.service';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { MemberControlle } from 'controllers/member.controller';
     // DBAuthenStrategy,
     JwtAuthenService,
     JwtAuthenStrategy,
+    MemberService,
   ],
 })
 export class AppModule {}

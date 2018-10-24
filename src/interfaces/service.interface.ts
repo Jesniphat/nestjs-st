@@ -11,3 +11,9 @@ export class LoginResponse {
   public data: Members;
   public error: string;
 }
+
+export class ProfileResponse {
+  public status: boolean;
+  public data: Members;
+  public error: string;
+}
