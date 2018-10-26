@@ -25,7 +25,7 @@ export class Members {
   @Column('varchar', { length: 100 })
   public position: string;
 
-  @Column({ length: 500, default: '' })
+  @Column({ length: 1000, default: '' })
   public image: string;
 
   @Column('varchar', { length: 30, default: 0 })

@@ -22,6 +22,7 @@ export class MemberControlle {
   @Get('data')
   public async userLogin(@Req() req: Request, @Res() res: Response): Promise<any> {
     if (typeof req.user === 'object') {
+      req.user.image = req.user.image ? 'http://localhost:3000' + req.user.image : '';
       return await res.status(HttpStatus.OK).send({
         statusCode: 200,
         success: 'OK',
