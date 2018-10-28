@@ -1,4 +1,4 @@
-import { Controller, Get, UseGuards, Req, Res, HttpStatus, Post, Body } from '@nestjs/common';
+import { Controller, Get, UseGuards, Req, Res, HttpStatus, Post, Body, Put } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Request, Response } from 'express';
 import { Profile } from 'models/profile.model';
@@ -46,7 +46,7 @@ export class MemberControlle {
    * @access public
    * @return Promise<any>
    */
-  @Post('profile')
+  @Put('profile')
   public async updateProfile(@Req() req: Request, @Body(new ValidationPipe()) body: Profile, @Res() res: Response): Promise<any> {
     const result = await this.memberService.onUpdateProfile(req.user.id, body);
 
@@ -72,7 +72,7 @@ export class MemberControlle {
    * @param @Body(new Validation) body: Profile
    * @param @Res() res: Response
    */
-  @Post('change-password')
+  @Put('change-password')
   public async changePassword(@Req() req: Request, @Body(new ValidationPipe()) body: ChangePassword, @Res() res: Response): Promise<any> {
     const result = await this.memberService.onChangePassword(req.user.id, body);
 
