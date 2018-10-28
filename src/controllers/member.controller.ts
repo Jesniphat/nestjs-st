@@ -4,6 +4,7 @@ import { Request, Response } from 'express';
 import { Profile } from 'models/profile.model';
 import { ValidationPipe } from 'pipes/validation.pipe';
 import { MemberService } from 'services/member.service';
+import { ChangePassword } from 'models/change-password.model';
 
 @Controller('api/member')
 @UseGuards(AuthGuard('jwt'))
@@ -48,6 +49,32 @@ export class MemberControlle {
   @Post('profile')
   public async updateProfile(@Req() req: Request, @Body(new ValidationPipe()) body: Profile, @Res() res: Response): Promise<any> {
     const result = await this.memberService.onUpdateProfile(req.user.id, body);
+
+    if (result.status) {
+      await delete result.data.password;
+      return await res.status(HttpStatus.OK).send({
+        statusCode: 200,
+        success: 'OK',
+        data: result.data,
+      });
+    } else {
+      return await res.status(HttpStatus.BAD_REQUEST).send({
+        statusCode: 400,
+        error: 'Bad Request',
+        message: result.error,
+      });
+    }
+  }
+
+  /**
+   * change password
+   * @param @Req() res: Request
+   * @param @Body(new Validation) body: Profile
+   * @param @Res() res: Response
+   */
+  @Post('change-password')
+  public async changePassword(@Req() req: Request, @Body(new ValidationPipe()) body: ChangePassword, @Res() res: Response): Promise<any> {
+    const result = await this.memberService.onChangePassword(req.user.id, body);
 
     if (result.status) {
       await delete result.data.password;

@@ -6,6 +6,8 @@ import { Repository } from 'typeorm';
 import { ProfileResponse } from 'interfaces/service.interface';
 import { BASE_DIR } from 'main';
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
+import { ChangePassword } from 'models/change-password.model';
+import { verify, generate } from 'password-hash';
 
 @Injectable()
 export class MemberService {
@@ -38,6 +40,13 @@ export class MemberService {
     }
   }
 
+  /**
+   * convart base64 to file
+   * @param memberId
+   * @param image
+   * @access private
+   * @return file name and path : string
+   */
   private async _convertUploadImage(memberId, image: string) {
     try {
       const img = image.split(',');
@@ -55,4 +64,30 @@ export class MemberService {
       throw new BadRequestException(e.message);
     }
   }
+
+/**
+ * change password
+ * @param memberId: number
+ * @param body: ChangePassword
+ * @access public
+ * @return Promise<ProfileResponse>
+ */
+  public async onChangePassword(memberId: number, body: ChangePassword): Promise<ProfileResponse> {
+    try {
+      let member: Members = new Members();
+
+      member = await this.memberRepository.findOne(memberId);
+      if (!verify(body.old_pass, member.password)) {
+        throw new Error('current password not match.');
+      }
+      member.password = generate(body.new_pass);
+      member = await this.memberRepository.save(member);
+      const responst = Object.assign({ status: true, data: member});
+      return Object.assign(responst);
+    } catch (e) {
+      const error = Object.assign({status: false, error: e.message});
+      return error;
+    }
+  }
+
 }
