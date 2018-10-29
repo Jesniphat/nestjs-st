@@ -70,8 +70,8 @@ export class DBAuthenStrategy extends PassportStrategy(Strategy) {
     super();
   }
 
-  async validate(token: string) {
-    const user = await this.authService.validateUser(token);
+  async validate(accessToken: string) {
+    const user = await this.authService.validateUser(accessToken);
     if (!user) {
       throw new UnauthorizedException('please login.', 'Unauthorized');
     }
