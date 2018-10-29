@@ -16,11 +16,30 @@ export class MemberService {
   ) {}
 
   /**
+   * Get user list
+   * @param limit: number
+   * @param total: number
+   * @access public
+   * @return Promise<ProfileResponse>
+   */
+  public async onGetUser(): Promise<ProfileResponse> {
+    try {
+      const memberLists = await this.memberRepository.find();
+      const response: ProfileResponse = Object.assign({status: true, data: memberLists});
+
+      return response;
+    } catch (e) {
+      const error: ProfileResponse = Object.assign({status: false, error: e.message});
+      return error;
+    }
+  }
+
+  /**
    * onUpdateProfile
    * @param memberId: number
    * @param body: Profile
    * @access public
-   * @return Promise<Profile>
+   * @return Promise<ProfileResponse>
    */
   public async onUpdateProfile(memberId: number, body: Profile): Promise<ProfileResponse> {
     try {

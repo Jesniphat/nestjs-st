@@ -16,6 +16,29 @@ export class MemberControlle {
   public constructor(private readonly memberService: MemberService) {}
 
   /**
+   * Get ALL USERS
+   */
+  @Get()
+  public async getUserList(@Req() req: Request, @Res() res: Response): Promise<any> {
+    const result = await this.memberService.onGetUser();
+
+    if (result.status) {
+      await delete result.data.password;
+      return await res.status(HttpStatus.OK).send({
+        statusCode: 200,
+        success: 'OK',
+        data: result.data,
+      });
+    } else {
+      return await res.status(HttpStatus.BAD_REQUEST).send({
+        statusCode: 400,
+        error: 'Bad Request',
+        message: result.error,
+      });
+    }
+  }
+
+  /**
    * userLogin
    * @access public
    * @return Promise<any>
