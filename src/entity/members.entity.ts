@@ -28,8 +28,8 @@ export class Members {
   @Column({ length: 1000, default: '' })
   public image: string;
 
-  @Column('varchar', { length: 30, default: 0 })
-  public role: string;
+  @Column('varchar', { length: 30, default: 1 })
+  public role: number;
 
   @Column('datetime', { default: () => 'CURRENT_TIMESTAMP' })
   public created: string;

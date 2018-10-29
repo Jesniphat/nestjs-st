@@ -9,6 +9,7 @@ import { LogingModel } from 'models/login.model';
 import { RegisterModel } from 'models/register.model';
 import { DBAuthenService } from './db-authen.service';
 import { JwtAuthenService } from './jwt-authen.service';
+import { RoleAccount } from 'interfaces/role.interface';
 
 @Injectable()
 export class AccountService {
@@ -97,6 +98,9 @@ export class AccountService {
         throw new Error('User name alredy exit.');
       }
 
+      if (member.role == null) {
+        member.role = RoleAccount[member.position];
+      }
       member.password = generate(member.password);
       const savedData = await this.memnberRepository.save(member);
 
