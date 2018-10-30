@@ -26,7 +26,7 @@ import { MemberService } from 'services/member.service';
   providers: [
     AccountService,
     DBAuthenService,
-    // DBAuthenStrategy,
+    DBAuthenStrategy,
     JwtAuthenService,
     JwtAuthenStrategy,
     MemberService,

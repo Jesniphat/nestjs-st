@@ -8,6 +8,7 @@ import { BASE_DIR } from 'main';
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { ChangePassword } from 'models/change-password.model';
 import { verify, generate } from 'password-hash';
+import { GetMembersModel } from 'models/get-members.model';
 
 @Injectable()
 export class MemberService {
@@ -22,9 +23,17 @@ export class MemberService {
    * @access public
    * @return Promise<ProfileResponse>
    */
-  public async onGetUser(): Promise<AccountList> {
+  public async onGetUser(query: GetMembersModel): Promise<AccountList> {
     try {
-      const memberLists = await this.memberRepository.find();
+      let limit = {};
+      if (query !== null) {
+        const start = ( parseInt(query.page, 10) * parseInt(query.limit, 10)) - parseInt(query.limit, 10);
+        limit = {
+          skip: start,
+          take: query.limit,
+        };
+      }
+      const memberLists = await this.memberRepository.find(limit);
       const memberTotal = await this.memberRepository.count();
       const response: AccountList = {
         status: true,

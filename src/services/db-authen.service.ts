@@ -50,6 +50,18 @@ export class DBAuthenService implements IAuthen {
                           .innerJoinAndSelect('token.member', 'member')
                           .where('token.access_token = :access_token', {access_token: accessToken})
                           .getOne();
+      // const token = await this.tokenRepository.findOne({
+      //   join: {
+      //     alias: 'token',
+      //     innerJoinAndSelect: {
+      //       member: 'token.member',
+      //     },
+      //   },
+      //   where: {
+      //     access_token: accessToken,
+      //   },
+      // });
+
       if (!token) {
         throw new Error('Token exprie or token not match.');
       }

@@ -1,10 +1,11 @@
-import { Controller, Get, UseGuards, Req, Res, HttpStatus, Post, Body, Put } from '@nestjs/common';
+import { Controller, Get, UseGuards, Req, Res, HttpStatus, Post, Body, Put, Query } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Request, Response } from 'express';
 import { Profile } from 'models/profile.model';
 import { ValidationPipe } from 'pipes/validation.pipe';
 import { MemberService } from 'services/member.service';
 import { ChangePassword } from 'models/change-password.model';
+import { GetMembersModel } from 'models/get-members.model';
 
 @Controller('api/member')
 @UseGuards(AuthGuard('jwt'))
@@ -19,8 +20,8 @@ export class MemberControlle {
    * Get ALL USERS
    */
   @Get()
-  public async getUserList(@Req() req: Request, @Res() res: Response): Promise<any> {
-    const result = await this.memberService.onGetUser();
+  public async getUserList(@Query(new ValidationPipe()) query: GetMembersModel, @Req() req: Request, @Res() res: Response): Promise<any> {
+    const result = await this.memberService.onGetUser(query);
 
     if (result.status) {
       return await res.status(HttpStatus.OK).send({
