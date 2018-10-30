@@ -23,10 +23,10 @@ export class MemberControlle {
     const result = await this.memberService.onGetUser();
 
     if (result.status) {
-      await delete result.data.password;
       return await res.status(HttpStatus.OK).send({
         statusCode: 200,
         success: 'OK',
+        total: result.total,
         data: result.data,
       });
     } else {

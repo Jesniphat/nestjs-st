@@ -3,7 +3,7 @@ import { Profile } from 'models/profile.model';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Members } from 'entity/members.entity';
 import { Repository } from 'typeorm';
-import { ProfileResponse } from 'interfaces/service.interface';
+import { ProfileResponse, AccountList } from 'interfaces/service.interface';
 import { BASE_DIR } from 'main';
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { ChangePassword } from 'models/change-password.model';
@@ -22,14 +22,22 @@ export class MemberService {
    * @access public
    * @return Promise<ProfileResponse>
    */
-  public async onGetUser(): Promise<ProfileResponse> {
+  public async onGetUser(): Promise<AccountList> {
     try {
       const memberLists = await this.memberRepository.find();
-      const response: ProfileResponse = Object.assign({status: true, data: memberLists});
+      const memberTotal = await this.memberRepository.count();
+      const response: AccountList = {
+        status: true,
+        data: memberLists,
+        total: memberTotal,
+      };
 
       return response;
     } catch (e) {
-      const error: ProfileResponse = Object.assign({status: false, error: e.message});
+      const error: AccountList = {
+        status: false,
+        error: e.message,
+      };
       return error;
     }
   }
@@ -51,10 +59,16 @@ export class MemberService {
 
       const profile = await this.memberRepository.save(members);
       profile.image = profile.image ? 'http://localhost:3000' + profile.image : '';
-      const responst = Object.assign({ status: true, data: profile});
+      const responst = {
+        status: true,
+        data: profile,
+      };
       return responst;
     } catch (e) {
-      const error = Object.assign({status: false, error: e.message});
+      const error = {
+        status: false,
+        error: e.message,
+      };
       return error;
     }
   }
@@ -101,10 +115,16 @@ export class MemberService {
       }
       member.password = generate(body.new_pass);
       member = await this.memberRepository.save(member);
-      const responst = Object.assign({ status: true, data: member});
+      const responst = {
+        status: true,
+        data: member,
+      };
       return Object.assign(responst);
     } catch (e) {
-      const error = Object.assign({status: false, error: e.message});
+      const error = {
+        status: false,
+        error: e.message,
+      };
       return error;
     }
   }

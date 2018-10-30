@@ -107,10 +107,16 @@ export class AccountService {
       // tslint:disable-next-line:no-console
       console.log('Cat has been saved -> ' /*, savedData*/);
 
-      const response: SavedResponse = Object.assign({status: true, data: savedData});
+      const response: SavedResponse = {
+        status: true,
+        data: savedData,
+      };
       return response;
     } catch (e) {
-      const error: SavedResponse = Object.assign({status: false, error: e.message });
+      const error: SavedResponse = {
+        status: false,
+        error: e.message,
+      };
       return error;
     }
   }
@@ -134,16 +140,16 @@ export class AccountService {
         throw new Error('Password not correct.');
       }
       const token = await this.authenService.generateAccessToken(account[0][0]);
-      const response: LoginResponse = Object.assign({
+      const response: LoginResponse = {
         status: true,
         data: token,
-      });
+      };
       return response;
     } catch (e) {
-      const error: LoginResponse = Object.assign({
+      const error: LoginResponse = {
         status: false,
         error: e.message,
-      });
+      };
       return error;
     }
   }
