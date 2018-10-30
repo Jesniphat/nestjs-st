@@ -6,6 +6,7 @@ import { ValidationPipe } from 'pipes/validation.pipe';
 import { MemberService } from 'services/member.service';
 import { ChangePassword } from 'models/change-password.model';
 import { GetMembersModel } from 'models/get-members.model';
+import { RolesGuard } from '../guards/roles.guard';
 
 @Controller('api/member')
 @UseGuards(AuthGuard('jwt'))
@@ -18,9 +19,14 @@ export class MemberControlle {
 
   /**
    * Get ALL USERS
+   * @param  @Query(new ValidationPipe()) query: GetMembersModel
+   * @param  @Res() res: Response
+   * @access public
+   * @return Promise<any>
    */
   @Get()
-  public async getUserList(@Query(new ValidationPipe()) query: GetMembersModel, @Req() req: Request, @Res() res: Response): Promise<any> {
+  @UseGuards(new RolesGuard('admin', 'employee'))
+  public async getUserList(@Query(new ValidationPipe()) query: GetMembersModel, @Res() res: Response): Promise<any> {
     const result = await this.memberService.onGetUser(query);
 
     if (result.status) {
