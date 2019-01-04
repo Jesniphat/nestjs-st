@@ -122,4 +122,15 @@ export class MemberControlle {
     }
   }
 
+  @Get('join')
+  public async selectJoin(@Res() res: Response): Promise<any> {
+    // tslint:disable-next-line:no-console
+    console.log('join');
+    this.memberService.onJoin();
+    return await res.status(HttpStatus.OK).send({
+      statusCode: 200,
+      success: 'OK',
+    });
+  }
+
 }

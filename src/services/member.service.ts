@@ -9,11 +9,13 @@ import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { ChangePassword } from 'models/change-password.model';
 import { verify, generate } from 'password-hash';
 import { GetMembersModel } from 'models/get-members.model';
+import { Tokens } from 'entity/tokens.entity';
 
 @Injectable()
 export class MemberService {
   public constructor(
     @InjectRepository(Members) private readonly memberRepository: Repository<Members>,
+    @InjectRepository(Tokens) private readonly tokenRepository: Repository<Tokens>,
   ) {}
 
   /**
@@ -135,6 +137,31 @@ export class MemberService {
         error: e.message,
       };
       return error;
+    }
+  }
+
+  public async onJoin() {
+    try {
+      const token = await this.tokenRepository
+                          .createQueryBuilder('tokens')
+                          .innerJoinAndSelect('tokens.members', 'members')
+                          .getOne();
+      // tslint:disable-next-line:no-console
+      console.log(token);
+
+      const mem = await this.memberRepository
+                            .createQueryBuilder('members')
+                            .innerJoinAndSelect('members.tokens', 'tokens')
+                            // .where('tokens.id = 12')
+                            .getOne();
+      // tslint:disable-next-line:no-console
+      console.log(mem);
+
+      return true;
+    } catch (e) {
+      // tslint:disable-next-line:no-console
+      console.log(e.message);
+      return e.message;
     }
   }
 

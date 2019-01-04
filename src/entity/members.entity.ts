@@ -40,6 +40,6 @@ export class Members {
   @Column({ default: true})
   public active: boolean;
 
-  @OneToMany(type => Tokens, token => token.member)
-  public token: Tokens[];
+  @OneToMany(type => Tokens, tokens => tokens.members)
+  public tokens: Tokens[];
 }

@@ -46,9 +46,9 @@ export class DBAuthenService implements IAuthen {
   public async validateUser(accessToken: string): Promise<any> {
     try {
       const token = await this.tokenRepository
-                          .createQueryBuilder('token')
-                          .innerJoinAndSelect('token.member', 'member')
-                          .where('token.access_token = :access_token', {access_token: accessToken})
+                          .createQueryBuilder('tokens')
+                          .innerJoinAndSelect('tokens.members', 'members')
+                          .where('tokens.access_token = :access_token', {access_token: accessToken})
                           .getOne();
       // const token = await this.tokenRepository.findOne({
       //   join: {
@@ -66,8 +66,8 @@ export class DBAuthenService implements IAuthen {
         throw new Error('Token exprie or token not match.');
       }
       if ((moment(token.exprise).format('YYYY-MM-DD h:mm:ss')) > (moment().format('YYYY-MM-DD h:mm:ss'))) {
-        await delete token.member.password;
-        return token.member;
+        await delete token.members.password;
+        return token.members;
       }
     } catch (e) {
       return e.message;

@@ -21,6 +21,6 @@ export class Tokens {
   @Column('datetime', { default: () => 'CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP' })
   public updated: string;
 
-  @ManyToOne(type => Members, member => member.token)
-  public member: Members;
+  @ManyToOne(type => Members, members => members.tokens)
+  public members: Members;
 }
