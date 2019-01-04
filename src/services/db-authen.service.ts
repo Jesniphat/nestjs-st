@@ -28,7 +28,7 @@ export class DBAuthenService implements IAuthen {
     }
 
     const token: Tokens = new Tokens();
-    token.member = memberData;
+    token.members = memberData;
     token.access_token = generate(Math.random().toString());
     token.exprise = moment().add(30, 'minute').format('YYYY-MM-DD h:mm:ss');
 
