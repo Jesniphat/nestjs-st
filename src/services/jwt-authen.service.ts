@@ -7,7 +7,7 @@ import { Repository } from 'typeorm';
 
 import { IAuthen } from 'interfaces/authen.interface';
 import { Members } from 'entity/members.entity';
-import { sign } from 'jsonwebtoken';
+// import { sign } from 'jsonwebtoken';
 import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
