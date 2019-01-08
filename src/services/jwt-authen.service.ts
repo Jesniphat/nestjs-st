@@ -8,13 +8,14 @@ import { Repository } from 'typeorm';
 import { IAuthen } from 'interfaces/authen.interface';
 import { Members } from 'entity/members.entity';
 import { sign } from 'jsonwebtoken';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class JwtAuthenService implements IAuthen {
-  static secretKey: string = 'Mr.Jesse';
 
   public constructor(
     @InjectRepository(Members) private readonly memberRepository: Repository<Members>,
+    private readonly jwtService: JwtService,
   ) {
 
   }
@@ -26,7 +27,7 @@ export class JwtAuthenService implements IAuthen {
  */
   public async generateAccessToken(memberData: Members): Promise<string> {
     const payload = { id: memberData.id, role: memberData.role, position: memberData.position };
-    const token = await sign(payload, JwtAuthenService.secretKey, {expiresIn: 60 * 60});
+    const token = await this.jwtService.sign(payload);
     return token;
   }
 
@@ -55,7 +56,7 @@ export class JwtAuthenStrategy extends PassportStrategy(Strategy) {
   constructor(private readonly authService: JwtAuthenService) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      secretOrKey: JwtAuthenService.secretKey,
+      secretOrKey: 'Mr.Jesse',
     });
   }
 

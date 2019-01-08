@@ -9,7 +9,7 @@ import { GetMembersModel } from 'models/get-members.model';
 import { RolesGuard } from '../guards/roles.guard';
 
 @Controller('api/member')
-@UseGuards(AuthGuard('jwt'))
+@UseGuards(AuthGuard())
 export class MemberControlle {
 
   /**
@@ -25,7 +25,7 @@ export class MemberControlle {
    * @return Promise<any>
    */
   @Get()
-  @UseGuards(new RolesGuard('admin', 'employee'))
+  // @UseGuards(new RolesGuard('admin', 'employee'))
   public async getUserList(@Query(new ValidationPipe()) query: GetMembersModel, @Res() res: Response): Promise<any> {
     const result = await this.memberService.onGetUser(query);
 
