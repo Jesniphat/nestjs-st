@@ -41,7 +41,7 @@ export class JwtAuthenService implements IAuthen {
     try {
       const member = await this.memberRepository.findOne(data.id);
       if (!member) {
-        throw new Error('Token exprie or token not match.');
+        throw new Error('Token exprie or token not match or this user is not longer.');
       }
       await delete member.password;
       return member;
