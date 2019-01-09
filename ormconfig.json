@@ -5,6 +5,11 @@
   "username": "root",
   "password": "rootp@ssw0rd",
   "database": "member",
-  "entities": ["src/**/**.entity{.ts,.js}"],
+  "entities": [
+    "src/**/**.entity{.ts,.js}"
+  ],
+  "//entities": [
+    "dist/**/**.entity{.ts,.js}"
+  ],
   "synchronize": true
 }
