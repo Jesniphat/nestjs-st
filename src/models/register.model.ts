@@ -1,5 +1,5 @@
 import { IsString, IsNotEmpty, IsEmail, Matches } from 'class-validator';
-import { IsComparePassword } from 'pipes/validation.pipe';
+import { IsComparePassword } from '../pipes/validation.pipe';
 
 export class RegisterModel {
   @IsNotEmpty()

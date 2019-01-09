@@ -1,8 +1,8 @@
 import { Get, Controller, Post, Body, Res, Param, HttpStatus  } from '@nestjs/common';
-import { AccountService } from 'services/account.service';
-import { RegisterModel } from 'models/register.model';
-import { ValidationPipe } from 'pipes/validation.pipe';
-import { LogingModel } from 'models/login.model';
+import { AccountService } from '../services/account.service';
+import { RegisterModel } from '../models/register.model';
+import { ValidationPipe } from '../pipes/validation.pipe';
+import { LogingModel } from '../models/login.model';
 
 @Controller('api/account')
 export class AccountController {

@@ -1,14 +1,14 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
+import { JwtService } from '@nestjs/jwt';
 
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { IAuthen } from 'interfaces/authen.interface';
-import { Members } from 'entity/members.entity';
+import { IAuthen } from '../interfaces/authen.interface';
+import { Members } from '../entity/members.entity';
 // import { sign } from 'jsonwebtoken';
-import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class JwtAuthenService implements IAuthen {

@@ -1,15 +1,15 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
-import { Profile } from 'models/profile.model';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Members } from 'entity/members.entity';
 import { Repository } from 'typeorm';
-import { ProfileResponse, AccountList } from 'interfaces/service.interface';
-import { BASE_DIR } from 'main';
-import { existsSync, mkdirSync, writeFileSync } from 'fs';
-import { ChangePassword } from 'models/change-password.model';
 import { verify, generate } from 'password-hash';
-import { GetMembersModel } from 'models/get-members.model';
-import { Tokens } from 'entity/tokens.entity';
+import { existsSync, mkdirSync, writeFileSync } from 'fs';
+import { Profile } from '../models/profile.model';
+import { Members } from '../entity/members.entity';
+import { ProfileResponse, AccountList } from '../interfaces/service.interface';
+import { BASE_DIR } from '../main';
+import { ChangePassword } from '../models/change-password.model';
+import { GetMembersModel } from '../models/get-members.model';
+import { Tokens } from '../entity/tokens.entity';
 
 @Injectable()
 export class MemberService {

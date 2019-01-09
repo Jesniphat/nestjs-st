@@ -1,11 +1,11 @@
 import { Controller, Get, UseGuards, Req, Res, HttpStatus, Post, Body, Put, Query } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Request, Response } from 'express';
-import { Profile } from 'models/profile.model';
-import { ValidationPipe } from 'pipes/validation.pipe';
-import { MemberService } from 'services/member.service';
-import { ChangePassword } from 'models/change-password.model';
-import { GetMembersModel } from 'models/get-members.model';
+import { Profile } from '../models/profile.model';
+import { ValidationPipe } from '../pipes/validation.pipe';
+import { MemberService } from '../services/member.service';
+import { ChangePassword } from '../models/change-password.model';
+import { GetMembersModel } from '../models/get-members.model';
 import { RolesGuard } from '../guards/roles.guard';
 // import { Roles } from '../decorators/roles.decorator'; some docs
 

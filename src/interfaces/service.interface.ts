@@ -1,4 +1,4 @@
-import { Members } from 'entity/members.entity';
+import { Members } from '../entity/members.entity';
 
 export class SavedResponse {
   public status: boolean;

@@ -3,13 +3,13 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { generate, verify } from 'password-hash';
 
-import { Members } from 'entity/members.entity';
-import { SavedResponse, LoginResponse } from 'interfaces/service.interface';
-import { LogingModel } from 'models/login.model';
-import { RegisterModel } from 'models/register.model';
+import { Members } from '../entity/members.entity';
+import { SavedResponse, LoginResponse } from '../interfaces/service.interface';
+import { LogingModel } from '../models/login.model';
+import { RegisterModel } from '../models/register.model';
 import { DBAuthenService } from './db-authen.service';
 import { JwtAuthenService } from './jwt-authen.service';
-import { RoleAccount } from 'interfaces/role.interface';
+import { RoleAccount } from '../interfaces/role.interface';
 
 @Injectable()
 export class AccountService {
