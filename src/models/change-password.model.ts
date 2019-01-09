@@ -1,5 +1,5 @@
 import { IsNotEmpty, Matches } from 'class-validator';
-import { IsComparePassword } from 'pipes/validation.pipe';
+import { IsComparePassword } from '../pipes/validation.pipe';
 
 export class ChangePassword {
   @IsNotEmpty()

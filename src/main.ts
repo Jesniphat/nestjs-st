@@ -1,5 +1,5 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from 'app.module';
+import { AppModule } from './app.module';
 import * as express from 'express';
 
 export const BASE_DIR = __dirname;
