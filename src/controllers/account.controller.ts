@@ -4,6 +4,7 @@ import { RegisterModel } from '../models/register.model';
 import { ValidationPipe } from '../pipes/validation.pipe';
 import { LogingModel } from '../models/login.model';
 
+
 @Controller('api/account')
 export class AccountController {
   constructor(private readonly appService: AccountService) {}
