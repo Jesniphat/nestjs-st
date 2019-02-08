@@ -22,7 +22,7 @@ import { MemberService } from './services/member.service';
     TypeOrmModule.forFeature([Members, Tokens]),
 
     // JWT Authen
-    PassportModule.register({ defaultStrategy: 'jwt' }),
+    // PassportModule.register({ defaultStrategy: 'jwt' }), // use jwt in controller
     JwtModule.register({
       secretOrPrivateKey: 'Mr.Jesse',
       signOptions: {

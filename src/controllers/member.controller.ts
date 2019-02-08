@@ -11,7 +11,7 @@ import { RolesGuard } from '../guards/roles.guard';
 
 @Controller('api/member')
 // @UseGuards(RolesGuard) // Or put it here if you need
-@UseGuards(AuthGuard())
+@UseGuards(AuthGuard('jwt'))
 export class MemberControlle {
 
   /**
