@@ -7,10 +7,10 @@ import { MemberService } from '../services/member.service';
 import { ChangePassword } from '../models/change-password.model';
 import { GetMembersModel } from '../models/get-members.model';
 import { RolesGuard } from '../guards/roles.guard';
-// import { Roles } from '../decorators/roles.decorator'; some docs
+import { Roles } from '../decorators/roles.decorator'; // some docs
 
 @Controller('api/member')
-// @UseGuards(RolesGuard) // Or put it here if you need
+@UseGuards(RolesGuard) // Or put it here if you need
 @UseGuards(AuthGuard('jwt'))
 export class MemberControlle {
 
@@ -27,9 +27,9 @@ export class MemberControlle {
    * @return Promise<any>
    */
   @Get()
-  @UseGuards(new RolesGuard('admin', 'employee'))
+  // @UseGuards(new RolesGuard('admin', 'employee'))
   // @UseGuards(RolesGuard) // Or put it here if you need
-  // @Roles('admin', 'employee')
+  @Roles('admin', 'employee')
   public async getUserList(@Query(new ValidationPipe()) query: GetMembersModel, @Res() res: Response): Promise<any> {
     const result = await this.memberService.onGetUser(query);
 
