@@ -5,10 +5,10 @@
   "username": "root",
   "password": "rootp@ssw0rd",
   "database": "member",
-  "//entities": [
+  "entities": [
     "src/**/**.entity{.ts,.js}"
   ],
-  "entities": [
+  "//entities": [
     "dist/**/**.entity{.ts,.js}"
   ],
   "synchronize": true
