@@ -23,7 +23,7 @@
     "@nestjs/passport": "^5.1.0",
     "@nestjs/typeorm": "^5.2.2",
     "@types/jsonwebtoken": "^7.2.8",
-    "class-transformer": "^0.1.10",
+    "class-transformer": "^0.3.1",
     "class-validator": "^0.9.1",
     "fastify-formbody": "^2.0.0",
     "jsonwebtoken": "^8.3.0",
